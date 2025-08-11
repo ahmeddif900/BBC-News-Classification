@@ -4,9 +4,7 @@ import torch
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 import numpy as np
 
-# ----------------------------
 # Load models
-# ----------------------------
 @st.cache_resource
 def load_baseline():
     return joblib.load("baseline_tfidf_logreg.joblib")
@@ -21,15 +19,11 @@ def load_distilbert():
 baseline_model = load_baseline()
 tokenizer, distilbert_model = load_distilbert()
 
-# ----------------------------
 # Label mapping
-# ----------------------------
 label_list = ['business', 'entertainment', 'politics', 'sport', 'tech']
 id_to_label = {i: label for i, label in enumerate(label_list)}
 
-# ----------------------------
 # Prediction functions
-# ----------------------------
 def predict_baseline(text):
     pred = baseline_model.predict([text])[0]
     proba = baseline_model.predict_proba([text])[0]
@@ -43,9 +37,7 @@ def predict_distilbert(text):
     pred_id = int(np.argmax(probs))
     return id_to_label[pred_id], float(probs[pred_id])
 
-# ----------------------------
 # Streamlit UI
-# ----------------------------
 st.title("BBC News Category Classifier")
 st.write("Classify BBC news articles into Business, Entertainment, Politics, Sport, or Tech.")
 
@@ -64,3 +56,4 @@ if st.button("Predict"):
 
         st.markdown(f"**Predicted category:** {pred_label}")
         st.markdown(f"**Confidence:** {confidence:.2%}")
+
