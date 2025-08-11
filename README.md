@@ -65,3 +65,11 @@ bbc/
    ```bash
    streamlit run app.py
    ```
+## Results comparison
+1. Baseline Model → TF-IDF + Logistic Regression (your GridSearchCV-optimized one)
+2. NLP Upgrade → DistilBERT fine-tuned on your BBC dataset
+
+| Model                  | Accuracy | Precision | Recall | F1-score |
+| ---------------------- | -------- | --------- | ------ | -------- |
+| TF-IDF + Logistic Reg. | 0.9888     | 0.9889      | 0.9888   | 0.9887     |
+| DistilBERT             | 0.9820     | 0.9822     | 0.9820   | 0.9819     |
